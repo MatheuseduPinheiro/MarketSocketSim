@@ -15,6 +15,10 @@ public class Produto {
         this.preco = preco;
     }
 
+    public Produto(){
+        
+    }
+
     // Getters
     public int getId() {
         return id;

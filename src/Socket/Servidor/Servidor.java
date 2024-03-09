@@ -1,37 +1,58 @@
 package Socket.Servidor;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 
 public class Servidor {
     public static void main(String[] args) throws IOException {
 
-        try {
-            // Definir a porta
-            ServerSocket serverSocket = new ServerSocket(3000);
+        try (ServerSocket serverSocket = new ServerSocket(3000);
+             Socket socket = serverSocket.accept();
+             InputStreamReader inputReader = new InputStreamReader(socket.getInputStream());
+             PrintStream saida = new PrintStream(socket.getOutputStream());
+             BufferedReader reader = new BufferedReader(inputReader)) {
 
-            // Pegar a informação da conexão
-            Socket socket = serverSocket.accept();
+            List<String> menuProdutos = List.of("Produto 1", "Produto 2", "Produto 3");
+
             System.out.println("Servidor Inicializado!");
-            // Ler as informações e mandar de volta para o cliente
-            InputStreamReader inputReader = new InputStreamReader(socket.getInputStream());
-            PrintStream saida = new PrintStream(socket.getOutputStream());
-            BufferedReader reader = new BufferedReader(inputReader);
-            String mensagem;
 
-            while ((mensagem = reader.readLine()) != null) {
-             
-                System.out.println("Mensagem do cliente: " + mensagem);
-                saida.println(mensagem);
-                
+            while (true) {
+                String mensagem = reader.readLine();
+
+                if (mensagem != null) {
+                    switch (mensagem) {
+                        case "1":
+                            // Enviar o menu de produtos ao cliente
+                            saida.println("==== Menu de Produtos ====");
+                            for (String produto : menuProdutos) {
+                                saida.println(produto);
+                            }
+                            saida.println("================================");
+                            break;
+
+                        case "2":
+                            // Encerrar a conexão
+                            System.out.println("Conexão encerrada pelo cliente.");
+                            socket.close();
+                            return;
+
+                        default:
+                            // Mensagem de opção inválida
+                            saida.println("Cliente: Opção inválida. Tente novamente.");
+                            break;
+                    }
+
+                    // Esperar um momento para permitir que o cliente processe a resposta
+                    Thread.sleep(100);
+                }
             }
 
-        } catch (Exception e) {
-            System.err.println("Servidor não autenticado");
+        } catch (IOException | InterruptedException e) {
+            System.err.println("Erro ao iniciar o servidor: " + e.getMessage());
         }
     }
 }
