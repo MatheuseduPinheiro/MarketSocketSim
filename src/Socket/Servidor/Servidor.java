@@ -17,7 +17,6 @@ public class Servidor {
             // Pegar a informação da conexão
             Socket socket = serverSocket.accept();
             System.out.println("Servidor Inicializado!");
-
             // Ler as informações e mandar de volta para o cliente
             InputStreamReader inputReader = new InputStreamReader(socket.getInputStream());
             PrintStream saida = new PrintStream(socket.getOutputStream());
@@ -25,9 +24,10 @@ public class Servidor {
             String mensagem;
 
             while ((mensagem = reader.readLine()) != null) {
+             
                 System.out.println("Mensagem do cliente: " + mensagem);
-                saida.println("Servidor: " + mensagem);
-                break;
+                saida.println(mensagem);
+                
             }
 
         } catch (Exception e) {
