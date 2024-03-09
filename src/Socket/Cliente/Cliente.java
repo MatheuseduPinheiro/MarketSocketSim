@@ -36,6 +36,11 @@ public class Cliente {
                     String respostaServidor = entrada.readLine();
                     System.out.println(respostaServidor);
 
+                    // escolha 1 em looping
+                    if("1".equals(escolha)){
+                        continue;
+                    }
+
                     // Encerrar a conexão se o usuário escolher sair
                     if ("2".equals(escolha)) {
                         System.out.println("Encerrando a conexão...");

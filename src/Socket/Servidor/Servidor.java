@@ -7,6 +7,8 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.List;
 
+import Socket.Supermecado.Produto;
+
 public class Servidor {
     public static void main(String[] args) throws IOException {
 
@@ -16,7 +18,7 @@ public class Servidor {
              PrintStream saida = new PrintStream(socket.getOutputStream());
              BufferedReader reader = new BufferedReader(inputReader)) {
 
-            List<String> menuProdutos = List.of("Produto 1", "Produto 2", "Produto 3");
+            List<Produto> menuProdutos = Produto.getProdutosPreInstanciados();
 
             System.out.println("Servidor Inicializado!");
 
@@ -27,9 +29,9 @@ public class Servidor {
                     switch (mensagem) {
                         case "1":
                             // Enviar o menu de produtos ao cliente
-                            saida.println("==== Menu de Produtos ====");
-                            for (String produto : menuProdutos) {
-                                saida.println(produto);
+                            saida.println("===== Menu de Produtos =====");
+                            for (Produto produto : menuProdutos) {
+                                saida.println(produto.exibirDetalhes());
                             }
                             saida.println("================================");
                             break;
@@ -45,12 +47,10 @@ public class Servidor {
                             saida.println("Cliente: Opção inválida. Tente novamente.");
                             break;
                     }
-
                     // Esperar um momento para permitir que o cliente processe a resposta
                     Thread.sleep(100);
                 }
             }
-
         } catch (IOException | InterruptedException e) {
             System.err.println("Erro ao iniciar o servidor: " + e.getMessage());
         }
