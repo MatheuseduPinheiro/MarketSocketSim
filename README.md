@@ -5,8 +5,8 @@
 <h2>Funcionalidades</h2>
 
 <ul>
-    <li>Listar Produtos: O cliente pode solicitar ao servidor a lista de todos os produtos disponíveis no supermercado &#9989.</li>
-    <li>Adicionar Produto ao Carrinho: O cliente pode adicionar um produto ao carrinho, fornecendo o ID do produto desejado &#9989.</li>
+    <li>Listar Produtos: O cliente pode solicitar ao servidor a lista de todos os produtos disponíveis no supermercado&#9989.</li>
+    <li>Adicionar Produto ao Carrinho: O cliente pode adicionar um produto ao carrinho, fornecendo o ID do produto desejado&#9989.</li>
     <li>Remover Produto do Carrinho:</li> O cliente pode remover um produto do carrinho, fornecendo o ID do produto a ser removido.
     <li>Visualizar Carrinho:</li> O cliente pode visualizar os produtos atualmente presentes no carrinho.
     <li>Finalizar Compra:</li> O cliente pode finalizar a compra, enviando o carrinho com os produtos escolhidos para o servidor processar o pagamento e concluir a transação.
