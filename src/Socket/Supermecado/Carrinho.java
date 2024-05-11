@@ -48,4 +48,8 @@ public class Carrinho {
         }
         return total;
     }
+    public List<Produto> getItens() {
+        return this.itens;
+    }
+    
 }

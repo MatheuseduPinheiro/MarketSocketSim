@@ -24,13 +24,15 @@ public class Cliente {
                 System.out.println("Escolha uma opção:");
                 System.out.println("1. Listar Produtos");
                 System.out.println("2. Sair");
-                System.out.println("3. Adicionar ao Carrinho pelo ID");
+                System.out.println("3. Adicionar item ao Carrinho pelo ID");
+                System.out.println("4: Remover item do Carrinho pelo ID");
+                System.out.println("5: Visualizar itens ao Carrinho pelo ID");
 
                 System.out.print("Opção: ");
                 String escolha = input.nextLine();
 
                 // Verificar se a escolha é válida
-                if ("1".equals(escolha) || "2".equals(escolha) || "3".equals(escolha)) {
+                if ("1".equals(escolha) || "2".equals(escolha) || "3".equals(escolha) || "4".equals(escolha) || "5".equals(escolha)) {
                     saida.println(escolha);
 
                     if ("3".equals(escolha)) {
@@ -38,7 +40,7 @@ public class Cliente {
                         System.out.print("Digite o ID do produto que deseja adicionar ao carrinho: ");
                         String idProduto = input.nextLine();
                         saida.println(idProduto);
-                        
+
                         continue;
                     }
 
@@ -51,9 +53,24 @@ public class Cliente {
                         System.out.println("Encerrando a conexão...");
                         break;
                     }
+
+                    if ("4".equals(escolha)) {
+                        // Processar remoção de produto do carrinho
+                        System.out.print("Digite o ID do produto que deseja remover do carrinho: ");
+                        String idProdutoRemover = input.nextLine();
+                        saida.println(idProdutoRemover);
+                        break;
+                    }
+
+                    if ("5".equals(escolha)) {
+                        // Enviar a escolha do cliente para o servidor
+                        saida.println(escolha);
+                    }
+
                 } else {
                     System.out.println("Opção inválida. Tente novamente.");
                 }
+
             }
         } catch (IOException e) {
             System.err.println("Erro ao iniciar o cliente: " + e.getMessage());

@@ -72,6 +72,47 @@ public class Servidor {
                             }
                             break;
 
+                        case "4":
+                            // Receber o ID do produto a ser removido do carrinho
+                            String idProdutoRemover = reader.readLine();
+                            int idRemover = Integer.parseInt(idProdutoRemover);
+
+                            // Procurar o produto correspondente na lista de produtos no carrinho
+                            Produto produtoRemover = null;
+                            for (Produto produto : carrinho.getItens()) {
+                                if (produto.getId() == idRemover) {
+                                    produtoRemover = produto;
+                                    break; // Sai do loop assim que encontra o produto
+                                }
+                            }
+
+                            // Remover o produto do carrinho, se encontrado
+                            if (produtoRemover != null) {
+                                carrinho.removerProduto(produtoRemover);
+                                saida.println("Produto removido do carrinho: " + produtoRemover.getNome());
+                            } else {
+                                // Se o produto não foi encontrado no carrinho, envie uma mensagem adequada para
+                                // o cliente
+                                saida.println("Produto não encontrado no carrinho.");
+                            }
+                            break;
+
+                        case "5":
+                            // Enviar cabeçalho para indicar que a lista de itens do carrinho será enviada
+                            saida.println("===== Itens no Carrinho =====");
+
+                            // Verificar se o carrinho está vazio
+                            if (carrinho.getItens().isEmpty()) {
+                                saida.println("O carrinho está vazio.");
+                            } else {
+                                // Iterar sobre os itens do carrinho e enviar as informações para o cliente
+                                for (Produto produto : carrinho.getItens()) {
+                                    saida.println(produto.exibirDetalhes());
+                                }
+                            }
+                            saida.println("================================");
+                            break;
+
                         default:
                             // Mensagem de opção inválida
                             saida.println("Cliente: Opção inválida. Tente novamente.");
